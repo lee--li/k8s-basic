@@ -18,4 +18,4 @@ COPY . .
 
 EXPOSE 7000
 
-ENTRYPOINT [ "node", "severnode.js" ]
+ENTRYPOINT [ "node", "servernode.js" ]
