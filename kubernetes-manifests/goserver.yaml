@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
       - name: goserver
-        image: 
-        port:
+        image: 192.168.1.62:5000/goserver 
+        ports:
         - containerPort: 8081
         env:
         - name: PORT
@@ -25,11 +25,12 @@ kind: Service
 metadata:
   name: goserver
 spec: 
-  type: ClousterIP
+  type: NodePort
   selector:
     app: goserver
   ports:
   - name: goserver
     port: 8081
     targetPort: 8081
+    nodePort: 30036
           
