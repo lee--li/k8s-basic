@@ -12,27 +12,26 @@ import (
 func main() {
 
 	port := "8080"
-	grpcport := "8180"
+	grpcserver := ":8180"
 	if os.Getenv("PORT") != "" {
 		port = os.Getenv("PORT")
 	}
-	if os.Getenv("GRPCPORT") != "" {
-		grpcport = os.Getenv("GRPCPORT")
+	if os.Getenv("GOSERVERADDR") != "" {
+		grpcserver = os.Getenv("GOSERVERADDR")
 	}
 	
 	fmt.Println("hello world")
 
-	// 连接服务器
-	conn, err := grpc.Dial(":8180", grpc.WithInsecure())
-	if err != nil {
-		fmt.Printf("faild to connect: %v", err)
-	}
-	defer conn.Close()
-	grpcclient := pb.NewGoGreeterClient(conn)
-
 	r := gin.Default()
 	
 	r.GET("/hello", func(c *gin.Context) {
+        // 连接服务器
+                conn, err := grpc.Dial(grpcserver, grpc.WithInsecure())
+                    if err != nil {
+                    fmt.Printf("faild to connect: %v", err)
+                }
+                defer conn.Close()
+                grpcclient := pb.NewGoGreeterClient(conn)
 		// 调用服务端的SayHello
 		r, err := grpcclient.SayHello(context.Background(), &pb.HelloRequest{Name: "go"})
 		if err != nil {
