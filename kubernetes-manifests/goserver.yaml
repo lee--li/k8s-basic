@@ -21,7 +21,10 @@ spec:
           value: "8081"
         - name: GRPCPORT
           value: "8085"
-
+        volumeMounts:
+          - name: goconfig
+            mountPath: /app/setting
+            subPath: setting
         readinessProbe:
           httpGet:
             # 连接使用的schema，默认HTTP。
@@ -50,6 +53,10 @@ spec:
           initialDelaySeconds: 20
           periodSeconds: 10
           successThreshold: 1
+    volumes:
+        - name: goconfig
+          configMap:
+            name: goserver-config
 
 ---
 apiVersion: v1
