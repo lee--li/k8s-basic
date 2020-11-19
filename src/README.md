@@ -5,3 +5,4 @@
 ### go    go mod init
 ### python pip freeze > requirements.txt
 ### npm init  npm install
+### protoc --go_out=. ./demo.proto
