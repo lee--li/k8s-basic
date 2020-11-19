@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"os"
+	"io/ioutil"
 
 	"goserver/mygprc"
 )
@@ -12,6 +13,14 @@ import (
 
 func main() {
 	fmt.Println("hello world")
+
+	version := "V0"
+	t, err := ioutil.ReadFile("/app/setting")
+	if err == nil {
+		fmt.Println("read file success")
+		version  = string(t)
+	}
+	fmt.Println("app version:", version)
 
 	port := "8080"
 	grpcport := "8180"
