@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: server-ingress
+  namespace: default
+spec:
+  rules:
+    - host: #if host set a value, you must use host to access services
+      http:
+        paths:
+           - path: /api/goserver(/|$)(.*)
+             backend:
+               serviceName: goserver
+               servicePort: 8081
+           - path: /api/pythonserver(/|$)(.*)
+             backend:
+               serviceName: pythonserver
+               servicePort: 8081
+           - path: /api/nodeserver(/|$)(.*)
+             backend:
+               serviceName: nodeserver
+               servicePort: 8081
