@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: test
+spec:
+  resources:
+    inputs:
+    - name: repo
+      type: git
+  steps:
+  - name: run-test
+    image: golang:1.13-alpine
+    workingDir: /workspace/repo
+    env:
+      - name: "GO111MODULE"
+        value: "on"
+      - name: "GOPROXY"
+        value: "https://goproxy.cn,direct"
+    command: ["go"]
+    args: ["mod", "download"]
